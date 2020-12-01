@@ -10,11 +10,13 @@ YEAR = 2020
 def load_data(file: TextIO):
     return [int(line) for line in file.readlines() if line != ""]
 
+
 def solve(numbers: Iterable[int], entries: int = 2):
-    subsets = product(data, repeat=entries)
+    subsets = product(numbers, repeat=entries)
     for subset in subsets:
         if sum(subset) == YEAR:
             return reduce(mul, subset, 1)
+
 
 def solve_nlogn_2(numbers: List[int], already_sorted: bool = False, desired_sum: int = YEAR):
     sorted_numbers = numbers if already_sorted else sorted(numbers) 
@@ -29,6 +31,7 @@ def solve_nlogn_2(numbers: List[int], already_sorted: bool = False, desired_sum:
         elif s < desired_sum:
             l += 1
 
+
 def solve_n2_3(numbers: Iterable[int]):
     sorted_numbers = sorted(numbers)
     for number in sorted_numbers:
@@ -37,12 +40,14 @@ def solve_n2_3(numbers: Iterable[int]):
         if result:
             return result * number
 
+
 def benchmark(message: str, function: Callable[[], Any]):
     start_time = time.time_ns()
     result = function()
     end_time = time.time_ns()
     duration = end_time - start_time
     print(f"{message}: {result}; duration: {duration} ns")
+
 
 if __name__ == "__main__":
     data = load_data(stdin)
